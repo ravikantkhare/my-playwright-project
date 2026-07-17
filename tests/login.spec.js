@@ -1,10 +1,18 @@
-const { test, expect } = require('@playwright/test');
-const { LoginPage } = require('../pages/LoginPage');
+const { test, expect } = require("@playwright/test");
+const { LoginPage } = require("../pages/LoginPage");
 
-test('user can login successfully', async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.goto();
-  await loginPage.login('testuser', 'password123');
+test("User should login successfully", async ({ page }) => {
 
-  await expect(page).toHaveURL(/dashboard/);
+    const login = new LoginPage(page);
+
+    await login.goto();
+
+    await login.login(
+        "standard_user",
+        "secret_sauce"
+    );
+
+    await expect(page).toHaveURL(/inventory/);
+
+    await expect(page.locator(".title")).toHaveText("Products");
 });
