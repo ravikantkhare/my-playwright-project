@@ -7,9 +7,10 @@ class LoginPage {
     this.loginButton = page.locator("#login-button");
   }
 
+ 
   async goto() {
-    await this.page.goto("https://www.saucedemo.com/");
-  }
+  await this.page.goto(process.env.BASE_URL || "https://www.saucedemo.com/");
+}
 
   async login(user, pass) {
     await this.username.fill(user);
