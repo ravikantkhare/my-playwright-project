@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        allure 'Allure'
+    }
+
     stages {
 
         stage('Checkout') {
@@ -21,14 +25,15 @@ pipeline {
                 bat 'npx playwright test'
             }
         }
-        stage('Generate Allure Report') {
-            steps {
-                allure([
-                    includeProperties: false,
-                    jdk: '',
-                    results: [[path: 'allure-results']]
-                ])
-            }
+    }
+
+    post {
+        always {
+            allure([
+                includeProperties: false,
+                jdk: '',
+                results: [[path: 'allure-results']]
+            ])
         }
     }
 }
